@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nodejs-hw-mongodb
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: PORT
+        value: 3000
