@@ -1,20 +1,20 @@
 {
   "name": "nodejs-hw-mongodb",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node.js homework project with MongoDB",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Gleb-Voronov/nodejs-hw-mongodb.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gleb Voronov",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Gleb-Voronov/nodejs-hw-mongodb/issues"
@@ -36,3 +36,4 @@
     "pino-pretty": "^13.1.1"
   }
 }
+
