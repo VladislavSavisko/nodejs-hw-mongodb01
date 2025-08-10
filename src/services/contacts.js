@@ -1,9 +1,12 @@
-import Contact from '../models/contact.js';
-
-export const getAllContacts = async () => {
-  return await Contact.find({}, '-__v -createdAt -updatedAt');
-};
-
-export const getContactById = async (id) => {
-  return await Contact.findById(id, '-__v -createdAt -updatedAt');
-};
+[
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+123456789"
+  },
+  {
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "phone": "+987654321"
+  }
+]
