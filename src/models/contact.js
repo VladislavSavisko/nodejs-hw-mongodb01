@@ -10,7 +10,10 @@ const contactSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    email: String,
+    email: {
+      type: String,
+      default: null,
+    },
     isFavourite: {
       type: Boolean,
       default: false,
