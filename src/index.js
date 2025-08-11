@@ -9,6 +9,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Перевірка наявності змінних середовища
+console.log('================ ENV CHECK ================');
+console.log('PORT:', process.env.PORT || '(default 3000)');
+console.log(
+  'MONGODB_URI:',
+  process.env.MONGODB_URI ? '✅ Exists' : '❌ Missing'
+);
+console.log('============================================');
+
 app.use(express.json());
 
 // Маршрут з контактами
@@ -21,8 +30,10 @@ app.use((req, res) => {
 
 const startServer = async () => {
   try {
+    // Підключення до MongoDB
     await initMongoConnection();
 
+    // Запускаємо сервер
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
