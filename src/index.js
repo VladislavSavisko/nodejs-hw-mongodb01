@@ -3,13 +3,12 @@ import dotenv from 'dotenv';
 import contactRoutes from './routes/contactRoutes.js';
 import { initMongoConnection } from './db/initMongoConnection.js';
 
-// Завантажуємо змінні середовища з .env
+// Завантажуємо змінні середовища (для локальної розробки)
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Використовуємо JSON парсер
 app.use(express.json());
 
 // Маршрут з контактами
@@ -22,10 +21,8 @@ app.use((req, res) => {
 
 const startServer = async () => {
   try {
-    // Підключення до MongoDB
     await initMongoConnection();
 
-    // Запускаємо сервер
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });

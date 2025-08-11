@@ -5,10 +5,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
-// Завантажуємо змінні з .env
+// Завантажуємо змінні з .env (локально)
 dotenv.config();
 
-// Отримуємо шлях до поточного файлу та папки
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -19,22 +18,17 @@ const contactsSeed = JSON.parse(
 
 export const initMongoConnection = async () => {
   try {
-    // Використовуємо повний URI з .env
     const mongoUri = process.env.MONGODB_URI;
 
     if (!mongoUri) {
-      throw new Error('MONGODB_URI is not defined in .env file');
+      throw new Error('❌ MONGODB_URI is not defined. Set it in Render Environment Variables or in .env file.');
     }
 
     // Підключення до MongoDB
-    await mongoose.connect(mongoUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(mongoUri);
 
     console.log('✅ Connected to MongoDB');
 
-    // Перевіряємо, чи є дані в колекції
     const count = await Contact.countDocuments();
     if (count === 0) {
       await Contact.insertMany(contactsSeed);
