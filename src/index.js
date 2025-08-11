@@ -3,30 +3,36 @@ import dotenv from 'dotenv';
 import contactRoutes from './routes/contactRoutes.js';
 import { initMongoConnection } from './db/initMongoConnection.js';
 
+// Завантажуємо змінні середовища з .env
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Формуємо повний URI для MongoDB Atlas з частин
-const MONGO_URI = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}` +
-                  `@${process.env.MONGODB_URL}/${process.env.MONGODB_DB}?retryWrites=true&w=majority`;
-
+// Використовуємо JSON парсер
 app.use(express.json());
 
 // Маршрут з контактами
 app.use('/contacts', contactRoutes);
 
-// Якщо не знайдено маршрут
+// Обробка неіснуючих маршрутів
 app.use((req, res) => {
   res.status(404).json({ message: 'Not Found' });
 });
 
 const startServer = async () => {
-  await initMongoConnection(MONGO_URI);
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-  });
+  try {
+    // Підключення до MongoDB
+    await initMongoConnection();
+
+    // Запускаємо сервер
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error.message);
+    process.exit(1);
+  }
 };
 
 startServer();
